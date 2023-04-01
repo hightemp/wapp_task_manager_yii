@@ -7,3 +7,4 @@ services:
       - ./:/app:delegated
     ports:
       - '8000:80'
+    user: "1000:1000"

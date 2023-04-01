@@ -19,6 +19,7 @@ class UserController extends Controller
         $user->username = $username;
         $user->email = $email;
         $user->password = $password;
+        $user->auth_key = "";
         // \Yii::$app->security->generatePasswordHash(
 
         if ($user->save()) {
