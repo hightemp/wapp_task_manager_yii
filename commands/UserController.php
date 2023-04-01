@@ -18,7 +18,8 @@ class UserController extends Controller
         $user = new User();
         $user->username = $username;
         $user->email = $email;
-        $user->password_hash = \Yii::$app->security->generatePasswordHash($password);
+        $user->password = $password;
+        // \Yii::$app->security->generatePasswordHash(
 
         if ($user->save()) {
             echo "Пользователь успешно создан.\n";
