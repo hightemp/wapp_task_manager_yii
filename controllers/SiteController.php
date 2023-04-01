@@ -10,6 +10,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
+use app\models\User;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -122,7 +124,21 @@ class SiteController extends Controller
 
     public function actionUsers()
     {
-        return $this->render('users');
+        $usersDataProvider = new ActiveDataProvider([
+            'query' => User::find(),
+        ]);
+
+        return $this->render('users', [
+            'usersDataProvider' => $usersDataProvider,
+        ]);
+    }
+
+    public function actionUserView($id)
+    {
+        $model = User::findOne($id);
+        return $this->render('user/view', [
+            'model' => $model,
+        ]);
     }
 
     public function actionTasks()

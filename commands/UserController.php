@@ -15,14 +15,10 @@ class UserController extends Controller
      */
     public function actionCreate($username, $email, $password)
     {
-        $user = new User();
-        $user->username = $username;
-        $user->email = $email;
-        $user->password = $password;
-        $user->auth_key = "";
-        // \Yii::$app->security->generatePasswordHash(
+        $user = \UserFabric::createUser($username, $email, $password);
 
-        if ($user->save()) {
+
+        if ($user) {
             echo "Пользователь успешно создан.\n";
         } else {
             echo "Ошибка при создании пользователя:\n";
