@@ -2,14 +2,16 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Task */
+/* @var $userOptions string[] */
 
-$this->title = 'Редактирование задачи: ' . $model->title;
+$this->title = 'Редактирование: ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Задачи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Редактирование задачи';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="task-update">
 
@@ -19,13 +21,35 @@ $this->params['breadcrumbs'][] = 'Редактирование задачи';
 
         <?php $form = ActiveForm::begin(); ?>
 
+        <div class="mb-3">
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+        </div>
 
+        <div class="mb-3">
         <?= $form->field($model, 'short_description')->textarea(['rows' => 6]) ?>
+        </div>
 
+        <div class="mb-3">
         <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+        </div>
 
-        <?= $form->field($model, 'status')->dropDownList([ 'new' => 'New', 'in_progress' => 'In Progress', 'completed' => 'Completed', ], ['prompt' => '']) ?>
+        <div class="mb-3">
+        <?= $form->field($model, 'creator_id')->widget(Select2::class, [
+            'data' => $userOptions,
+            'options' => ['placeholder' => 'Выберите пользователя'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); ?>
+        </div>
+
+        <div class="mb-3">
+        <?= $form->field($model, 'status')->dropDownList([
+                'new' => 'Новая',
+                'in_progress' => 'В работе',
+                'completed' => 'Завершена',
+            ], ['prompt' => '']) ?>
+        </div>
 
         <div class="form-group">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

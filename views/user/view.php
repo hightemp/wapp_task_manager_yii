@@ -4,9 +4,9 @@
 /** @var \app\models\User $model */
 /** @var yii\data\ActiveDataProvider $usersDataProvider */
 
-use yii\grid\GridView;
 use yii\i18n\Formatter;
 use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 $formatter = new Formatter();
 $formatter->datetimeFormat = 'php:d.m.Y H:i:s';

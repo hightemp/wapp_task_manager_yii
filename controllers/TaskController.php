@@ -7,6 +7,7 @@ use app\models\TaskSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\User;
 
 /**
  * TaskController implements the CRUD actions for Task model.
@@ -103,11 +104,21 @@ class TaskController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->validate()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+
+        $users = User::find()->all();
+        $userOptions = [];
+
+        foreach ($users as $user) {
+            $userOptions[$user->id] = $user->username;
         }
 
         return $this->render('update', [
             'model' => $model,
+            'userOptions' => $userOptions
         ]);
     }
 

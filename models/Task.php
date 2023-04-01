@@ -17,6 +17,28 @@ class Task extends ActiveRecord {
         return '{{%tasks}}';
     }
 
+    public function rules()
+    {
+        return [
+            [['title'], 'required'],
+            [['creator_id'], 'integer'],
+            [['title', 'short_description', 'description', 'status'], 'string'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'title' => 'Заголовок',
+            'short_description' => 'Краткое описание',
+            'description' => 'Описание',
+            'status' => 'Статус',
+            'created_at' => 'Создана',
+            'updated_at' => 'Обновлена',
+        ];
+    }
+
     public function behaviors()
     {
         return [
