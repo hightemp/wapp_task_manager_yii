@@ -4,6 +4,7 @@ namespace app\commands;
 
 use yii\console\Controller;
 use app\models\User;
+use app\lib\factories\UserFactory;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function actionCreate($username, $email, $password)
     {
-        $user = \UserFabric::createUser($username, $email, $password);
+        $user = UserFactory::createUser($username, $email, $password);
 
 
         if ($user) {

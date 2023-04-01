@@ -3,6 +3,7 @@ namespace app\models;
 
 use yii\base\Model;
 use app\models\User;
+use app\lib\factories\UserFactory;
 
 /**
  * Signup form
@@ -47,7 +48,7 @@ class SignupForm extends Model
             return null;
         }
 
-        return \UserFabric::createUser(
+        return UserFactory::createUser(
             $this->username,
             $this->email,
             $this->password

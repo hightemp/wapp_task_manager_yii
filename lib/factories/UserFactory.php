@@ -1,10 +1,10 @@
 <?php
 
+namespace app\lib\factories;
+
 use app\models\User;
 
-namespace \lib\fabrics;
-
-class UserFabric
+class UserFactory
 {
     public static function createUser($username, $email, $password) {
         $user = new User();
