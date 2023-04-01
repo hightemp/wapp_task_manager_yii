@@ -6,6 +6,7 @@
 use yii\grid\GridView;
 use yii\i18n\Formatter;
 use yii\helpers\Html;
+use yii\bootstrap5\LinkPager;
 
 $formatter = new Formatter();
 $formatter->datetimeFormat = 'php:d.m.Y H:i:s';
@@ -47,10 +48,16 @@ echo GridView::widget([
             'template' => '{view}',
             'buttons' => [
                 'view' => function ($url, $model) {
-                    return Html::a('<i class="bi bi-eye-fill"></i>', ['site/user-view', 'id' => $model->id], ['class' => 'btn btn-light']);
+                    return Html::a('<i class="bi bi-eye-fill"></i>', ['user/view', 'id' => $model->id], ['class' => 'btn btn-light']);
                 }
             ],
         ],
     ],
     'summary' => "Показано {begin}-{end} из {totalCount} записей",
+    'pager' => [
+        'class' => LinkPager::class,
+        'options' => [
+            'class' => 'pagination justify-content-center'
+        ],
+    ],
 ]);

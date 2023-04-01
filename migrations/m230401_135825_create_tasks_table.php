@@ -22,10 +22,15 @@ class m230401_135825_create_tasks_table extends Migration
             'title' => $this->string()->notNull(),
             'short_description' => $this->string()->notNull(),
             'description' => $this->string()->notNull(),
+            'creator_id' => $this->integer(),
 
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ]);
+
+        if ($this->db->driverName != 'sqlite') {
+            $this->addForeignKey('fk_creator', 'tasks', 'creator_id', 'user', 'id');
+        }
     }
 
     /**

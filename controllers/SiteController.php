@@ -122,25 +122,6 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionUsers()
-    {
-        $usersDataProvider = new ActiveDataProvider([
-            'query' => User::find(),
-        ]);
-
-        return $this->render('users', [
-            'usersDataProvider' => $usersDataProvider,
-        ]);
-    }
-
-    public function actionUserView($id)
-    {
-        $model = User::findOne($id);
-        return $this->render('user/view', [
-            'model' => $model,
-        ]);
-    }
-
     public function actionTasks()
     {
         return $this->render('tasks');

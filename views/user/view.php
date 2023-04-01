@@ -16,18 +16,20 @@ $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' =
 $this->params['breadcrumbs'][] = $model->username;
 ?>
 
-<table>
-    <tr>
-        <td><b>Логин:</b></td>
-        <td><?php echo $model->username ?></td>
-    </tr>
-    <tr>
-        <td><b>Email:</b></td>
-        <td><?php echo $model->email ?></td>
-    </tr>
-    <tr>
-        <td><b>Создан:</b></td>
-        <td><?php echo  $formatter->asDatetime($model->created_at) ?></td>
-    </tr>
-</table>
+<?= DetailView::widget([
+    'model' => $model,
+    'attributes' => [
+        'id',
+        'username',
+        'email',
+        [
+            'attribute' => 'created_at',
+            'value' => $formatter->asDatetime($model->created_at),
+        ],
+        [
+            'attribute' => 'updated_at',
+            'value' => $formatter->asDatetime($model->updated_at),
+        ],
+    ],
+]) ?>
 

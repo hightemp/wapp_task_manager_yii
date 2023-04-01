@@ -151,4 +151,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function getTasks()
+    {
+        return $this->hasMany(Task::class, ['creator_id' => 'id']);
+    }
 }
