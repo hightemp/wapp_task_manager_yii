@@ -7,6 +7,8 @@ use app\models\TaskSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
+use app\models\Comment;
 use app\models\User;
 
 /**
@@ -23,7 +25,7 @@ class TaskController extends Controller
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -65,8 +67,25 @@ class TaskController extends Controller
      */
     public function actionView($id)
     {
+        $modelComment = new Comment();
+        if ($modelComment->load(Yii::$app->request->post()) && $modelComment->validate()) {
+            $modelComment->creator_id = Yii::$app->user->id;
+            $modelComment->task_id = $id;
+            $modelComment->save();
+            Yii::$app->session->setFlash('success', 'Комментарий успешно добавлен.');
+            return $this->refresh();
+        }
+
+        $modelComment = new Comment();
+        $comments = Comment::find()
+            ->where(['task_id' => $id])
+            ->orderBy(['created_at' => SORT_DESC])
+            ->all();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'modelComment' => $modelComment,
+            'comments' => $comments,
         ]);
     }
 

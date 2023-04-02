@@ -34,6 +34,7 @@ echo GridView::widget([
         [
             'attribute' => 'short_description',
             'header' => 'Краткое описание',
+            'format' => 'raw',
         ],
         [
             'attribute' => 'created_at',

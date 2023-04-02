@@ -3,9 +3,12 @@
 use yii\helpers\Html;
 use yii\i18n\Formatter;
 use yii\widgets\DetailView;
+use kartik\editors\Summernote;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Task */
+/* @var $modelComment app\models\Comment */
+/* @var $comments app\models\Comment[] */
 
 $formatter = new Formatter();
 $formatter->datetimeFormat = 'php:d.m.Y H:i:s';
@@ -33,9 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'title',
-            'description:ntext',
+            [
+                'attribute' => 'description',
+                'format' => 'raw',
+            ],
             [
                 'attribute' => 'creator.username',
                 'label' => 'Creator',
@@ -53,3 +58,35 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+
+<?php if ($modelComment->hasErrors()): ?>
+    <div class="alert alert-danger">
+        <?php foreach ($modelComment->getErrors() as $attribute => $errors): ?>
+            <?php foreach ($errors as $error): ?>
+                <p><?= $error ?></p>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
+<div class="mb-3">
+<?php
+use yii\widgets\ActiveForm;
+$form = ActiveForm::begin();
+?><div class="form-group"><?php
+echo $form->field($modelComment, 'comment')->widget(Summernote::class, [
+    'useKrajeePresets' => true,
+    // other widget settings
+]);
+echo Html::submitButton('Отправить', ['class' => 'btn btn-success']);
+?></div><?php
+ActiveForm::end();
+?>
+</div>
+
+<?php foreach ($comments as $comment) : ?>
+    <div class="comment">
+        <p><?= $comment->comment ?></p>
+        <p class="author"><b>Автор:</b> <?= $comment->creator->username ?></p>
+    </div>
+<?php endforeach; ?>

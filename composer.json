@@ -19,7 +19,8 @@
         "yiisoft/yii2-bootstrap5": "^2.0",
         "yiisoft/yii2-symfonymailer": "~2.0.3",
         "mihaildev/yii2-ckeditor": "*",
-        "kartik-v/yii2-widget-select2": "^2.2"
+        "kartik-v/yii2-widget-select2": "^2.2",
+        "kartik-v/yii2-editors": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
