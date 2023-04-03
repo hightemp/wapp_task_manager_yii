@@ -22,6 +22,10 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    const ROLE_ADMIN = 'admin';
+    const ROLE_USER = 'user';
+    const ROLE_GUEST = 'guest';
+
     /**
      * @inheritdoc
      */

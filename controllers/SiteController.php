@@ -111,6 +111,9 @@ class SiteController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
+                $auth = Yii::$app->authManager;
+                $authorRole = $auth->getRole(User::ROLE_USER);
+                $auth->assign($authorRole, $user->getId());
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();
                 }
